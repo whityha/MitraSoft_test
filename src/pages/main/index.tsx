@@ -1,28 +1,27 @@
-import { useAppDispatch, useAppSelector } from '@/hooks/redux';
-import { FETCH_COMMENTS, FETCH_POSTS } from '@/redux/actions';
+import { useEffect } from 'react';
+
+import PostList from '@/components/postsList';
+import SearchPanel from '@/components/searchPanel';
+import SortDropdown from '@/components/sortDropdown';
+import { usePosts } from '@/hooks/usePosts';
+import { useAppDispatch } from '@/hooks/useRedux';
+import { FETCH_POSTS } from '@/redux/actions';
 
 const MainPage = () => {
     const dispatch = useAppDispatch();
-    const { posts, comments } = useAppSelector((root) => {
-        return {
-            posts: root.posts,
-            comments: root.comments,
-        };
-    });
+    const posts = usePosts();
+
+    useEffect(() => {
+        posts.length || dispatch(FETCH_POSTS());
+    }, []);
+
     return (
         <div>
-            <ul>
-                {posts.map(({ id, title }) => (
-                    <li key={id}>{title}</li>
-                ))}
-            </ul>
-            <ul>
-                {comments.map(({ id, name }) => (
-                    <li key={id}>{name}</li>
-                ))}
-            </ul>
-            <button onClick={() => dispatch(FETCH_POSTS())}>getPosts</button>
-            <button onClick={() => dispatch(FETCH_COMMENTS(30))}>getComments</button>
+            <div className="d-flex m-4 gap-4">
+                <SortDropdown />
+                <SearchPanel />
+            </div>
+            <PostList />
         </div>
     );
 };

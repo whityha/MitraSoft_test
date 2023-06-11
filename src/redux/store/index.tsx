@@ -1,12 +1,12 @@
 import { applyMiddleware, legacy_createStore as createStore } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 
-import { rootReducer } from '../reducer';
+import { PostsListReducer } from '../reducer';
 import rootSaga from '../saga';
 
 const sagaMiddleware = createSagaMiddleware();
 
-export const store = createStore(rootReducer, undefined, applyMiddleware(sagaMiddleware));
+export const store = createStore(PostsListReducer, undefined, applyMiddleware(sagaMiddleware));
 
 sagaMiddleware.run(rootSaga);
 

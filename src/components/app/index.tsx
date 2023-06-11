@@ -2,13 +2,18 @@ import { Route, Routes } from 'react-router';
 
 import { ROUTES } from '@/routes';
 
+import Header from '../header';
+
 const App = () => {
     return (
-        <Routes>
-            {ROUTES.map(({ path, element }) => (
-                <Route key={path} path={path} element={element} />
-            ))}
-        </Routes>
+        <>
+            <Header />
+            <Routes>
+                {ROUTES.map(({ path, element }) => (
+                    <Route key={path} path={path} element={element} />
+                ))}
+            </Routes>
+        </>
     );
 };
 
