@@ -17,7 +17,7 @@ const MainPage = () => {
 
     return (
         <div>
-            <div className="d-flex m-4 gap-4">
+            <div className="d-flex flex-column m-3 gap-3">
                 <SortDropdown />
                 <SearchPanel />
             </div>

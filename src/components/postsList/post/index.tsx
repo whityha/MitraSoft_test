@@ -10,6 +10,7 @@ const Post = ({ id, body, title, userId, comments }: TPost) => {
         <ListGroup.Item className="d-flex gap-3">
             <Avatar id={userId} />
             <div className="me-auto">
+                {userId}
                 <p className="fw-bold">{title}</p>
                 {body}
                 <Comments id={id} comments={comments} />

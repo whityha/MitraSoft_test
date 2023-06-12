@@ -6,6 +6,7 @@ export const SET_COMMENTS_TYPE = 'setComments';
 export const SET_POSTS_TYPE = 'setPosts';
 export const SORT_POSTS_BY_TITLE_TYPE = 'sortPosts';
 export const SET_MODIFIED_POSTS_TYPE = 'setModifiedPosts';
+export const SET_MAX_POSTS_IN_PAGE_TYPE = 'setMaxPostsInPage';
 
 export const FETCH_POSTS = () => {
     return {
@@ -38,5 +39,12 @@ export const SET_MODIFIED_POSTS = (posts: Array<Post> | undefined) => {
     return {
         type: SET_MODIFIED_POSTS_TYPE,
         payload: posts,
+    };
+};
+
+export const SET_MAX_POSTS_IN_PAGE = (num: number) => {
+    return {
+        type: SET_MAX_POSTS_IN_PAGE_TYPE,
+        payload: num,
     };
 };
