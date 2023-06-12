@@ -4,6 +4,8 @@ import { useDispatch } from 'react-redux';
 import { useAppSelector } from '@/hooks/useRedux';
 import { SET_MAX_POSTS_IN_PAGE } from '@/redux/actions';
 
+import { MAX_POSTS_OPTIONS } from './config';
+
 interface PaginationComponent {
     contentLength: number;
     currentPage: number;
@@ -17,22 +19,25 @@ const PaginationComponent = ({
 }: PaginationComponent) => {
     const dispatch = useDispatch();
     const MAX_POSTS_IN_PAGE = useAppSelector((root) => root.maxPostsInPage);
+
     const minPages = 1;
     const maxPages = Math.ceil(contentLength / MAX_POSTS_IN_PAGE);
+
     const nextPage = () => changeCurrentPage((prevPage: number) => prevPage + 1);
     const prevPage = () => changeCurrentPage((prevPage: number) => prevPage - 1);
     const handleCurrentPage = (pageNumber: number) => () => changeCurrentPage(pageNumber);
+
     const changeMaxPostsInPage = (e: React.ChangeEvent<HTMLSelectElement>) => {
         dispatch(SET_MAX_POSTS_IN_PAGE(Number(e.target.value)));
     };
     return (
         <div className="d-flex m-3 gap-3 flex-column">
             <Form.Select onChange={changeMaxPostsInPage}>
-                <option value={5}>Выберите количество элементов на странице</option>
-                <option value={1}>1</option>
-                <option value={6}>6</option>
-                <option value={10}>10</option>
-                <option value={15}>15</option>
+                {MAX_POSTS_OPTIONS.map(({ id, value, text }) => (
+                    <option key={id} value={value}>
+                        {text}
+                    </option>
+                ))}
             </Form.Select>
             <Pagination className="justify-content-center">
                 <Pagination.First
@@ -51,8 +56,6 @@ const PaginationComponent = ({
                         {currentPage + 1}
                     </Pagination.Item>
                 )}
-
-                {/* {maxPages !== currentPage && <Pagination.Ellipsis />} */}
                 <Pagination.Next onClick={nextPage} disabled={maxPages === currentPage} />
                 <Pagination.Last
                     disabled={maxPages === currentPage}
