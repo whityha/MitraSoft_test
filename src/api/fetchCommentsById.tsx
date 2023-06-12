@@ -1,8 +1,10 @@
 import axios from 'axios';
 
-export const fetchCommentsById = async (id: number): Promise<Array<Comment>> => {
+import { PostComment } from '@/types';
+
+export const fetchCommentsById = async (id: number): Promise<Array<PostComment>> => {
     return axios
-        .get<Comment[]>(`https://jsonplaceholder.typicode.com/comments`, {
+        .get<PostComment[]>(`https://jsonplaceholder.typicode.com/comments`, {
             params: {
                 postId: id,
             },

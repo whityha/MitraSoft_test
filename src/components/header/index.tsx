@@ -1,15 +1,25 @@
-import { Nav, Navbar } from 'react-bootstrap';
+import { useState } from 'react';
+import { Button, Image, Nav, Offcanvas } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 import { PATHS } from '@/routes';
 
 const Header = () => {
+    const [isShow, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
     return (
-        <header>
-            <Navbar bg="light" expand="md" className="p-3">
-                <Navbar.Brand href="#home">Pavel Khapaliuk</Navbar.Brand>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Collapse id="basic-navbar-nav">
+        <header className="p-3 d-flex bg-light justify-content-between">
+            <h2>Pavel Khapaliuk</h2>
+            <Button variant="light" onClick={handleShow}>
+                <Image src="/assets/burger.svg" />
+            </Button>
+            <Offcanvas show={isShow} onHide={handleClose}>
+                <Offcanvas.Header closeButton>
+                    <Offcanvas.Title>Павел Хапалюк</Offcanvas.Title>
+                </Offcanvas.Header>
+                <Offcanvas.Body>
+                    <Image width={150} src="/assets/PHOTO.webp" alt="me" rounded />
                     <Nav className="me-auto">
                         <Link className="p-2" to={PATHS.MAIN}>
                             Home
@@ -18,8 +28,8 @@ const Header = () => {
                             About
                         </Link>
                     </Nav>
-                </Navbar.Collapse>
-            </Navbar>
+                </Offcanvas.Body>
+            </Offcanvas>
         </header>
     );
 };

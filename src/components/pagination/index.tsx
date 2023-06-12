@@ -18,7 +18,9 @@ const PaginationComponent = ({
     contentLength,
 }: PaginationComponent) => {
     const dispatch = useDispatch();
-    const MAX_POSTS_IN_PAGE = useAppSelector((root) => root.maxPostsInPage);
+    const MAX_POSTS_IN_PAGE = useAppSelector(
+        ({ PostsListReducer }) => PostsListReducer.maxPostsInPage
+    );
 
     const minPages = 1;
     const maxPages = Math.ceil(contentLength / MAX_POSTS_IN_PAGE);
@@ -39,29 +41,34 @@ const PaginationComponent = ({
                     </option>
                 ))}
             </Form.Select>
-            <Pagination className="justify-content-center">
-                <Pagination.First
-                    onClick={handleCurrentPage(1)}
-                    disabled={minPages === currentPage}
-                />
-                <Pagination.Prev disabled={minPages === currentPage} onClick={prevPage} />
-                {minPages !== currentPage && (
-                    <Pagination.Item onClick={handleCurrentPage(currentPage - 1)}>
-                        {currentPage - 1}
-                    </Pagination.Item>
-                )}
-                <Pagination.Item active>{currentPage}</Pagination.Item>
-                {maxPages !== currentPage && (
-                    <Pagination.Item onClick={handleCurrentPage(currentPage + 1)}>
-                        {currentPage + 1}
-                    </Pagination.Item>
-                )}
-                <Pagination.Next onClick={nextPage} disabled={maxPages === currentPage} />
-                <Pagination.Last
-                    disabled={maxPages === currentPage}
-                    onClick={handleCurrentPage(maxPages)}
-                />
-            </Pagination>
+            <div className="d-flex flex-column">
+                <span className="mb-3">
+                    Показано <b>{MAX_POSTS_IN_PAGE}</b> постов из <b>{contentLength}</b>
+                </span>
+                <Pagination>
+                    <Pagination.First
+                        onClick={handleCurrentPage(1)}
+                        disabled={minPages === currentPage}
+                    />
+                    <Pagination.Prev disabled={minPages === currentPage} onClick={prevPage} />
+                    {minPages !== currentPage && (
+                        <Pagination.Item onClick={handleCurrentPage(currentPage - 1)}>
+                            {currentPage - 1}
+                        </Pagination.Item>
+                    )}
+                    <Pagination.Item active>{currentPage}</Pagination.Item>
+                    {maxPages !== currentPage && (
+                        <Pagination.Item onClick={handleCurrentPage(currentPage + 1)}>
+                            {currentPage + 1}
+                        </Pagination.Item>
+                    )}
+                    <Pagination.Next onClick={nextPage} disabled={maxPages === currentPage} />
+                    <Pagination.Last
+                        disabled={maxPages === currentPage}
+                        onClick={handleCurrentPage(maxPages)}
+                    />
+                </Pagination>
+            </div>
         </div>
     );
 };

@@ -1,10 +1,11 @@
 import { fork } from 'redux-saga/effects';
 
-import watcherLoadCommentsSaga from './loadCommentsByPostID/watcherLoadComments';
 import watcherLoadPostsSaga from './loadPosts/watcherLoadPostsSaga';
+import watcherLoadUserSaga from './loadUser/watcherLoadUserSaga';
+import watcherLoadUserPostsSaga from './loadUserPosts/watcherLoadUserPostsSaga';
 
 export default function* rootSaga() {
-    console.log('Saga work');
-    yield fork(watcherLoadCommentsSaga);
     yield fork(watcherLoadPostsSaga);
+    yield fork(watcherLoadUserSaga);
+    yield fork(watcherLoadUserPostsSaga);
 }

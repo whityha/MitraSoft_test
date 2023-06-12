@@ -10,7 +10,9 @@ import Post from './post';
 
 const PostList = () => {
     const [currentPage, setCurrentPage] = useState(1);
-    const MAX_POSTS_IN_PAGE = useAppSelector((root) => root.maxPostsInPage);
+    const MAX_POSTS_IN_PAGE = useAppSelector(
+        ({ PostsListReducer }) => PostsListReducer.maxPostsInPage
+    );
     const posts = usePosts();
     return (
         <>
@@ -19,7 +21,7 @@ const PostList = () => {
                 currentPage={currentPage}
                 changeCurrentPage={setCurrentPage}
             />
-            <ListGroup as="ol" numbered>
+            <ListGroup as="ol" numbered className="m-3">
                 {posts
                     .slice(
                         (currentPage - 1) * MAX_POSTS_IN_PAGE,
