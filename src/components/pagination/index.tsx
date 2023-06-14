@@ -1,7 +1,6 @@
 import { Form, Pagination } from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
 
-import { useAppSelector } from '@/hooks/useRedux';
+import { useAppDispatch, useAppSelector } from '@/hooks/useRedux';
 import { SET_MAX_POSTS_IN_PAGE } from '@/redux/actions';
 
 import { MAX_POSTS_OPTIONS } from './config';
@@ -17,7 +16,7 @@ const PaginationComponent = ({
     changeCurrentPage,
     contentLength,
 }: PaginationComponent) => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const MAX_POSTS_IN_PAGE = useAppSelector(
         ({ PostsListReducer }) => PostsListReducer.maxPostsInPage
     );
@@ -30,6 +29,7 @@ const PaginationComponent = ({
     const handleCurrentPage = (pageNumber: number) => () => changeCurrentPage(pageNumber);
 
     const changeMaxPostsInPage = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        changeCurrentPage(1);
         dispatch(SET_MAX_POSTS_IN_PAGE(Number(e.target.value)));
     };
     return (

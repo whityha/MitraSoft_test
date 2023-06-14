@@ -11,6 +11,7 @@ export default function* loadUserPostsSaga({
     type: string;
     payload: number;
 }) {
+    console.log(type);
     const posts: Array<Post> = yield call(fetchUserPosts, id);
     yield put(SET_USER_POSTS(posts));
 }

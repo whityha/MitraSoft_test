@@ -11,6 +11,7 @@ export default function* loadUserSaga({
     type: string;
     payload: number;
 }) {
+    console.log(type);
     const user: User = yield call(fetchUser, id);
     yield delay(1000);
     yield put(SET_USER(user));

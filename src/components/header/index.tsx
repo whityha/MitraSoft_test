@@ -21,13 +21,14 @@ const Header = () => {
                 <Offcanvas.Body>
                     <Image width={150} src="/assets/PHOTO.webp" alt="me" rounded />
                     <Nav className="me-auto">
-                        <Link className="p-2" to={PATHS.MAIN}>
+                        <Link onClick={handleClose} className="p-2" to={PATHS.MAIN}>
                             Home
                         </Link>
-                        <Link className="p-2" to={PATHS.ABOUT_ME}>
+                        <Link onClick={handleClose} className="p-2" to={PATHS.ABOUT_ME}>
                             About
                         </Link>
                     </Nav>
+                    <a href="mailto: p.a.khapaliuk@gmail.com">p.a.khapaliuk@gmail.com</a>
                 </Offcanvas.Body>
             </Offcanvas>
         </header>
